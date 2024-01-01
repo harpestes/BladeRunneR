@@ -22,7 +22,6 @@ public class HeroKnight : MonoBehaviour
     private Sensor_HeroKnight m_wallSensorL2;
     private bool m_isWallSliding = false;
     private bool m_grounded = false;
-    private bool m_rolling = false;
     private bool m_isBlocking = false;
     private bool m_inMove = false;
     private int m_facingDirection = 1;
@@ -55,14 +54,6 @@ public class HeroKnight : MonoBehaviour
         // Increase timer that controls attack combo
         m_timeSinceAttack += Time.deltaTime;
 
-        // Increase timer that checks roll duration
-        if (m_rolling)
-            m_rollCurrentTime += Time.deltaTime;
-
-        // Disable rolling if timer extends duration
-        if (m_rollCurrentTime > m_rollDuration)
-            m_rolling = false;
-
         //Check if character just landed on the ground
         if (!m_grounded && m_groundSensor.State())
         {
@@ -94,7 +85,7 @@ public class HeroKnight : MonoBehaviour
         }
 
         // Move
-        if (!m_rolling && !m_isBlocking)
+        if (!m_isBlocking)
             m_body2d.velocity = new Vector2(inputX * m_speed, m_body2d.velocity.y);
 
         //Set AirSpeed in animator
@@ -113,16 +104,8 @@ public class HeroKnight : MonoBehaviour
             Destroy(this);
         }
 
-        //Hurt
-        else if (Input.GetKeyDown("q") && !m_rolling)///////////////////////////////////////////////////////////////////////////////////////////////////////////REWORK!
-        {
-            m_animator.SetTrigger("Hurt");
-
-            ///////////////////////////////////////////////////////////////////////////////////////////////////////////Add hero harming
-        }
-
         //Attack
-        else if (Input.GetMouseButtonDown(0) && m_timeSinceAttack > 0.25f && !m_rolling && ((inputX <= 0.5 && inputX >= 0) || (inputX >= -0.5 && inputX <= 0)))
+        else if (Input.GetMouseButtonDown(0) && m_timeSinceAttack > 0.25f && ((inputX <= 0.5 && inputX >= 0) || (inputX >= -0.5 && inputX <= 0)))
         {
             m_currentAttack++;
 
@@ -151,7 +134,7 @@ public class HeroKnight : MonoBehaviour
         }
 
         // Block
-        else if (Input.GetMouseButtonDown(1) && !m_rolling && ((inputX <= 0.5 && inputX >= 0) || (inputX >= -0.5 && inputX <= 0)))
+        else if (Input.GetMouseButtonDown(1) && ((inputX <= 0.5 && inputX >= 0) || (inputX >= -0.5 && inputX <= 0)))
         {
             m_isBlocking = true;
             m_animator.SetTrigger("Block");
@@ -164,18 +147,8 @@ public class HeroKnight : MonoBehaviour
             m_animator.SetBool("IdleBlock", m_isBlocking);
         }
 
-
-        // Roll
-        else if (Input.GetKeyDown("left shift") && !m_rolling && !m_isWallSliding && m_inMove && m_grounded)
-        {
-            m_rolling = true;
-            m_animator.SetTrigger("Roll");
-            m_body2d.velocity = new Vector2(m_facingDirection * m_rollForce, m_body2d.velocity.y);
-        }
-
-
         //Jump
-        else if (Input.GetKeyDown("space") && m_grounded && !m_rolling)
+        else if (Input.GetKeyDown("space") && m_grounded)
         {
             m_animator.SetTrigger("Jump");
             m_grounded = false;
@@ -227,13 +200,16 @@ public class HeroKnight : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        currentHP -= damage;
-
-        m_animator.SetTrigger("Hurt");
-
-        if (currentHP <= 0)
+        if(!m_isBlocking)
         {
-            Die();
+            currentHP -= damage;
+
+            m_animator.SetTrigger("Hurt");
+
+            if (currentHP <= 0)
+            {
+                Die();
+            }
         }
     }
 

@@ -16,7 +16,7 @@ public class SamuraiController : MonoBehaviour
     public Transform m_attackPoint;
     public float m_attackRange = 2.0f;
     public LayerMask heroLayers;
-    int attackDamage = 30;
+    int attackDamage = 10;
 
     // Start is called before the first frame update
     void Start()
