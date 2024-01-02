@@ -1,42 +1,46 @@
-﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class Bandit : MonoBehaviour {
+public class Wizard : MonoBehaviour
+{
+    [SerializeField] float m_speed;
 
-    [SerializeField] float      m_speed = 4.2f;
-
-    private Animator            animator;
-    private Rigidbody2D         m_body2d;
-    public Transform            player;
+    private Animator animator;
+    private Rigidbody2D m_body2d;
+    public Transform player;
     public float aggressiveDistance;
-    public int maxHP = 70;
+    public int maxHP = 100;
     private int currentHP;
     public Transform m_attackPoint;
-    public float m_attackRange = 2.0f;
+    public float m_attackRange = 3.5f;
     public LayerMask heroLayers;
-    int attackDamage = 10;
+    int attackDamage = 25;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         animator = GetComponent<Animator>();
         m_body2d = GetComponent<Rigidbody2D>();
+        m_body2d.constraints = RigidbodyConstraints2D.FreezeRotation;
         currentHP = maxHP;
     }
 
     private bool isAttacking = false;
-    private float attackCooldown = 0.7f;
+    private float attackCooldown = 2f;
     private float currentAttackCooldown = 0f;
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         float distToPlayer = Vector2.Distance(transform.position, player.position);
 
-        if (distToPlayer < aggressiveDistance && distToPlayer > 2)
+        if (distToPlayer < aggressiveDistance && distToPlayer > 3.5)
         {
             StartChase();
             isAttacking = false;
         }
-        else if (distToPlayer <= 2 && !isAttacking)
+        else if (distToPlayer <= 3.5 && !isAttacking)
         {
             Attack();
         }
@@ -44,7 +48,7 @@ public class Bandit : MonoBehaviour {
         {
             animator.SetInteger("AnimState", 1);
         }
- 
+
         if (currentAttackCooldown > 0)
         {
             currentAttackCooldown -= Time.deltaTime;
@@ -79,7 +83,7 @@ public class Bandit : MonoBehaviour {
 
     IEnumerator ResetAttackFlag()
     {
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(2f);
 
         isAttacking = false;
     }
@@ -95,12 +99,12 @@ public class Bandit : MonoBehaviour {
         if (player.position.x < transform.position.x)
         {
             Run(-1);
-            GetComponent<SpriteRenderer>().flipX = false;
+            GetComponent<SpriteRenderer>().flipX = true;
         }
         else if (player.position.x > transform.position.x)
         {
             Run(1);
-            GetComponent<SpriteRenderer>().flipX = true;
+            GetComponent<SpriteRenderer>().flipX = false;
         }
     }
 

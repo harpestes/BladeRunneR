@@ -10,7 +10,7 @@ public class HeroKnight : MonoBehaviour
     [SerializeField] bool m_noBlood = false;
     [SerializeField] GameObject m_slideDust;
     [SerializeField] int m_hp = 100;
-    public int currentHP;
+    private int currentHP;
 
     private Animator m_animator;
     private Rigidbody2D m_body2d;
@@ -26,7 +26,7 @@ public class HeroKnight : MonoBehaviour
     public Transform m_attackPoint;
     public float m_attackRange = 1.0f;
     public LayerMask enemyLayers;
-    int attackDamage = 20;
+    int attackDamage = 15;
 
 
     // Use this for initialization
@@ -35,6 +35,7 @@ public class HeroKnight : MonoBehaviour
         m_animator = GetComponent<Animator>();
         m_body2d = GetComponent<Rigidbody2D>();
         m_groundSensor = transform.Find("GroundSensor").GetComponent<Sensor_HeroKnight>();
+        currentHP = m_hp;
     }
 
     // Update is called once per frame
@@ -107,8 +108,14 @@ public class HeroKnight : MonoBehaviour
                 // Attempt to get the SamuraiController component
                 SamuraiController samuraiController = enemy.GetComponent<SamuraiController>();
 
-                // Attempt to get the BanditController component
-                Bandit banditController = enemy.GetComponent<Bandit>();
+                // Attempt to get the Bandit component
+                Bandit bandit = enemy.GetComponent<Bandit>();
+
+                // Attempt to get the Skeleton component
+                Skeleton skeleton = enemy.GetComponent<Skeleton>();
+
+                // Attempt to get the Skeleton component
+                Wizard wizard = enemy.GetComponent<Wizard>();
 
                 // Check if it's a Samurai
                 if (samuraiController != null)
@@ -117,10 +124,22 @@ public class HeroKnight : MonoBehaviour
                     Debug.Log("We hit a Samurai: " + enemy.name);
                 }
                 // Check if it's a Bandit
-                else if (banditController != null)
+                else if (bandit != null)
                 {
-                    banditController.TakeDamage(attackDamage);
+                    bandit.TakeDamage(attackDamage);
                     Debug.Log("We hit a Bandit: " + enemy.name);
+                }
+                // Check if it's a Skeleton
+                else if (skeleton != null)
+                {
+                    skeleton.TakeDamage(attackDamage);
+                    Debug.Log("We hit a Bandit: " + skeleton.name);
+                }
+                // Check if it's a Wizard
+                else if (wizard != null)
+                {
+                    wizard.TakeDamage(attackDamage);
+                    Debug.Log("We hit a Bandit: " + wizard.name);
                 }
                 // Log a message if it's neither a Samurai nor a Bandit
                 else
