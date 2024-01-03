@@ -7,15 +7,15 @@ public class Golem : MonoBehaviour
     private Rigidbody2D m_body2d;
     public Transform player;
     public Animator animator;
-    public float m_speed;
+    public float m_speed = 3f;
     public float aggressiveDistance;
     public int maxHP = 100;
     private int currentHP;
     public int attackCounter = 0;
     public Transform m_attackPoint;
-    public float m_attackRange = 3.5f;
+    public float m_attackRange = 4.0f;
     public LayerMask heroLayers;
-    int attackDamage = 15;
+    int attackDamage = 25;
 
     // Start is called before the first frame update
     void Start()
@@ -28,19 +28,19 @@ public class Golem : MonoBehaviour
 
     // Update is called once per frame
     private bool isAttacking = false;
-    private float attackCooldown = 0.7f;
+    private float attackCooldown = 2f;
     private float currentAttackCooldown = 0f;
 
     void Update()
     {
         float distToPlayer = Vector2.Distance(transform.position, player.position);
 
-        if (distToPlayer < aggressiveDistance && distToPlayer > 3.5)
+        if (distToPlayer < aggressiveDistance && distToPlayer > 4)
         {
             StartChase();
             isAttacking = false;
         }
-        else if (distToPlayer <= 3.5 && !isAttacking)
+        else if (distToPlayer <= 4 && !isAttacking)
         {
             Attack();
         }
@@ -93,7 +93,7 @@ public class Golem : MonoBehaviour
 
     IEnumerator ResetAttackFlag()
     {
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(2f);
 
         isAttacking = false;
     }

@@ -29,7 +29,7 @@ public class SamuraiController : MonoBehaviour
 
     // Update is called once per frame
     private bool isAttacking = false;
-    private float attackCooldown = 0.7f;
+    private float attackCooldown = 1f;
     private float currentAttackCooldown = 0f;
 
     void Update()
@@ -94,7 +94,7 @@ public class SamuraiController : MonoBehaviour
 
     IEnumerator ResetAttackFlag()
     {
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(1f);
         
         isAttacking = false;
     }

@@ -97,7 +97,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 9763e481f38a9d74797b225b4fa1daae, type: 2}
+  m_Motion: {fileID: 7400000, guid: 88d5d8b667e6a5b4f83ae87e47d94657, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -189,7 +189,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 408ad3601a1b5fc43a0a6ff45bd9979c, type: 2}
+  m_Motion: {fileID: 7400000, guid: 2d181707519144540aa45a0a1a2a814a, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -216,7 +216,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 3ee5baaadc026be4d9dde4602588edbe, type: 2}
+  m_Motion: {fileID: 7400000, guid: a52c65f964a0bf741bcbe88deb6ffe4c, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -267,7 +267,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: fe1cd989da6460548b4f35dd5d31c898, type: 2}
+  m_Motion: {fileID: 7400000, guid: d312b583c7de7a948a8abab0636ecc2a, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -304,7 +304,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Martial Hero
+  m_Name: Golem
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Hurt
@@ -485,7 +485,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: f19862bc9a015564b8328671feb1ebca, type: 2}
+  m_Motion: {fileID: 7400000, guid: 5edbd03a6ea5ffa419d3a2bf3f7e0835, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -539,7 +539,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 7c82c27b4b872d14c9c6b63a56ac76ed, type: 2}
+  m_Motion: {fileID: 7400000, guid: e7e9c427c0e5aa84c8e3de391e5cb424, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
