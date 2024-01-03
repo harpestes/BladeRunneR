@@ -6,7 +6,6 @@ public class HeroKnight : MonoBehaviour
 {
     [SerializeField] float m_speed = 4.2f;
     [SerializeField] float m_jumpForce = 7.5f;
-    [SerializeField] float m_rollForce = 6.0f;
     [SerializeField] bool m_noBlood = false;
     [SerializeField] GameObject m_slideDust;
     [SerializeField] int m_hp = 100;
@@ -18,8 +17,6 @@ public class HeroKnight : MonoBehaviour
     private bool m_grounded = false;
     private bool m_isBlocking = false;
     public bool isDead = false;
-    private bool m_inMove = false;
-    private int m_facingDirection = 1;
     private int m_currentAttack = 0;
     private float m_timeSinceAttack = 0.0f;
     private float m_delayToIdle = 0.0f;
@@ -65,13 +62,11 @@ public class HeroKnight : MonoBehaviour
         if (inputX > 0)
         {
             GetComponent<SpriteRenderer>().flipX = false;
-            m_facingDirection = 1;
         }
 
         else if (inputX < 0)
         {
             GetComponent<SpriteRenderer>().flipX = true;
-            m_facingDirection = -1;
         }
 
         // Move
@@ -105,43 +100,39 @@ public class HeroKnight : MonoBehaviour
 
             foreach (Collider2D enemy in hitEnemies)
             {
-                // Attempt to get the SamuraiController component
+                // Attempt to get the enemy component
                 SamuraiController samuraiController = enemy.GetComponent<SamuraiController>();
-
-                // Attempt to get the Bandit component
                 Bandit bandit = enemy.GetComponent<Bandit>();
-
-                // Attempt to get the Skeleton component
                 Skeleton skeleton = enemy.GetComponent<Skeleton>();
-
-                // Attempt to get the Skeleton component
                 Wizard wizard = enemy.GetComponent<Wizard>();
+                Golem golem = enemy.GetComponent<Golem>();
 
-                // Check if it's a Samurai
+                // Checks for enemy type
                 if (samuraiController != null)
                 {
                     samuraiController.TakeDamage(attackDamage);
-                    Debug.Log("We hit a Samurai: " + enemy.name);
+                    Debug.Log("We hit an enemy: " + enemy.name);
                 }
-                // Check if it's a Bandit
                 else if (bandit != null)
                 {
                     bandit.TakeDamage(attackDamage);
-                    Debug.Log("We hit a Bandit: " + enemy.name);
+                    Debug.Log("We hit an enemy: " + enemy.name);
                 }
-                // Check if it's a Skeleton
                 else if (skeleton != null)
                 {
                     skeleton.TakeDamage(attackDamage);
-                    Debug.Log("We hit a Bandit: " + skeleton.name);
+                    Debug.Log("We hit an enemy: " + enemy.name);
                 }
-                // Check if it's a Wizard
                 else if (wizard != null)
                 {
                     wizard.TakeDamage(attackDamage);
-                    Debug.Log("We hit a Bandit: " + wizard.name);
+                    Debug.Log("We hit an enemy: " + enemy.name);
                 }
-                // Log a message if it's neither a Samurai nor a Bandit
+                else if (golem != null)
+                {
+                    golem.TakeDamage(attackDamage);
+                    Debug.Log("We hit an enemy: " + enemy.name);
+                }
                 else
                 {
                     Debug.Log("Unknown enemy type: " + enemy.name);
@@ -179,7 +170,6 @@ public class HeroKnight : MonoBehaviour
             // Reset timer
             m_delayToIdle = 0.05f;
             m_animator.SetInteger("AnimState", 1);
-            m_inMove = true;
         }
 
         //Idle
@@ -187,7 +177,6 @@ public class HeroKnight : MonoBehaviour
         {
             // Prevents flickering transitions to idle
             m_delayToIdle -= Time.deltaTime;
-            m_inMove = false;
             if (m_delayToIdle < 0)
                 m_animator.SetInteger("AnimState", 0);
         }
