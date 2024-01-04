@@ -10,7 +10,7 @@ public class SamuraiController : MonoBehaviour
     public Animator animator;
     public float m_speed = 3f;
     public float aggressiveDistance;
-    public int maxHP = 100;
+    public int maxHP = 60;
     private int currentHP;
     public int attackCounter = 0;
     public Transform m_attackPoint;

@@ -11,6 +11,7 @@ public class HeroKnight : MonoBehaviour
     [SerializeField] int m_hp = 100;
     private int currentHP;
 
+    public GameObject background;
     private Animator m_animator;
     private Rigidbody2D m_body2d;
     private Sensor_HeroKnight m_groundSensor;
@@ -23,7 +24,8 @@ public class HeroKnight : MonoBehaviour
     public Transform m_attackPoint;
     public float m_attackRange = 1.0f;
     public LayerMask enemyLayers;
-    int attackDamage = 15;
+    int attackDamage = 20;
+    private bool firstRecover = false;
 
 
     // Use this for initialization
@@ -172,6 +174,22 @@ public class HeroKnight : MonoBehaviour
             m_animator.SetInteger("AnimState", 1);
         }
 
+        else if (Input.GetKeyDown(KeyCode.T) && (m_body2d.position.x > 117.91 && m_body2d.position.x < 121.63))
+        {
+            background.SetActive(false);
+            m_body2d.position = new Vector2(167.49f, 2.8f);
+            recover();
+        }
+
+        else if(m_body2d.position.x == 50.56)
+        {
+            if(!firstRecover)
+            {
+                firstRecover = true;
+                recover();
+            }
+        }
+
         //Idle
         else
         {
@@ -197,12 +215,16 @@ public class HeroKnight : MonoBehaviour
         }
     }
 
-    void Die()
+    public void Die()
     {
         m_animator.SetBool("noBlood", m_noBlood);
         m_animator.SetTrigger("Death");
         isDead = true;
         Destroy(this);
         this.enabled = false;
+    }
+    private void recover()
+    {
+        currentHP = m_hp;
     }
 }

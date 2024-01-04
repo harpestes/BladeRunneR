@@ -9,7 +9,7 @@ public class Bandit : MonoBehaviour {
     private Rigidbody2D         m_body2d;
     public Transform            player;
     public float aggressiveDistance;
-    public int maxHP = 70;
+    public int maxHP = 40;
     private int currentHP;
     public Transform m_attackPoint;
     public float m_attackRange = 2.0f;

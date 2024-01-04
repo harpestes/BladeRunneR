@@ -10,7 +10,7 @@ public class Skeleton : MonoBehaviour
     private Rigidbody2D m_body2d;
     public Transform player;
     public float aggressiveDistance;
-    public int maxHP = 60;
+    public int maxHP = 30;
     private int currentHP;
     public Transform m_attackPoint;
     public float m_attackRange = 3.5f;
