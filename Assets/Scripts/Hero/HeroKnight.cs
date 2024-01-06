@@ -181,15 +181,6 @@ public class HeroKnight : MonoBehaviour
             recover();
         }
 
-        else if(m_body2d.position.x == 50.56)
-        {
-            if(!firstRecover)
-            {
-                firstRecover = true;
-                recover();
-            }
-        }
-
         //Idle
         else
         {
@@ -197,6 +188,15 @@ public class HeroKnight : MonoBehaviour
             m_delayToIdle -= Time.deltaTime;
             if (m_delayToIdle < 0)
                 m_animator.SetInteger("AnimState", 0);
+        }
+
+        if (m_body2d.position.x <= 50.56 && m_body2d.position.x >= 45)
+        {
+            if (!firstRecover)
+            {
+                firstRecover = true;
+                recover();
+            }
         }
     }
 
